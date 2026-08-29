@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spin wheel ciHUyy</title>
+
+    <style>
+        body { 
+            text-align: center; 
+            font-family: cursive; 
+            background: #fdd179; 
+            padding-top: 40px; 
+        }
+
+        .box { 
+            position: relative; 
+            width: 300px; 
+            height: 300px; 
+            margin: 0 auto; 
+        }
+
+        .pointer { 
+            position: absolute; 
+            top: px; 
+            left: 135px; 
+            width: 0; 
+            height: 0; 
+            border-left: 15px solid transparent; 
+            border-right: 15px solid transparent; 
+            border-top: 25px solid #ff4757; 
+            z-index: 2; 
+        }
+
+        #wheel { 
+            width: 120%; 
+            height: 120%; 
+            border-radius: 50%; 
+            transition: transform 3s ease-out; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-left: -25px;
+            margin-top: 15px;
+        }
+        .btn-cute { 
+            margin-top: 100px; 
+            padding: 14px 40px; 
+            font-size: 18px; 
+            font-weight: bold;
+            color: white;
+            background: #ff6b81;
+            border: none;
+            border-radius: 50px; 
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(255, 107, 129, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-cute:hover {
+            background: #d78087;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4);
+        }
+        .btn-cute:active {
+            transform: translateY(2px) scale(0.95);
+            box-shadow: 0 3px 8px rgba(75, 61, 62, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Spin your activity >_< </h2>
+
+    <div class="box">
+        <div class="pointer"></div>
+        <canvas id="wheel" width="300" height="300"></canvas>
+    </div>
+
+    <button class="btn-cute" onclick="spin()">BoOoMm!!</button>
+
+    <script>
+        var choices = ["Sleep", "Painting", "Reading", "Gardening", "Workout", "Watching"];
+        var colors = ["#ffb7b2", "#c7ceea", "#55efc4", "#ffeaa7", "#a29bfe", "#b5ead7"];
+        var canvas = document.getElementById("wheel");
+        var ctx = canvas.getContext("2d");
+        var angle = (2 * Math.PI) / choices.length;
+
+        for (var i = 0; i < choices.length; i++) {
+            ctx.beginPath();
+            ctx.fillStyle = colors[i];
+            ctx.moveTo(150, 150);
+            ctx.arc(150, 150, 150, i * angle, (i + 1) * angle);
+            ctx.fill();
+
+            ctx.save();
+            ctx.translate(150, 150);
+            ctx.rotate(i * angle + angle / 2);
+            ctx.fillStyle = "Black";
+            ctx.font = "bold 16px sans-serif";
+            ctx.fillText(choices[i], 50, 5);
+            ctx.restore();
+        }
+
+        var totalSpins = 3;
+        function spin() {
+            var randomDegree = Math.floor(Math.random() * 360) + 1440;
+            totalSpins += randomDegree;
+            canvas.style.transform = "rotate(" + totalSpins + "deg)";
+        }
+    </script>
+</body>
+</html>
